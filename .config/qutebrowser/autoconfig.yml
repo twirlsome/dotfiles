@@ -13,6 +13,7 @@ settings:
       accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
   content.javascript.clipboard:
     https://chatgpt.com: access-paste
+    https://github.com: access-paste
   content.notifications.enabled:
     https://www.youtube.com: false
   tabs.max_width:
