@@ -1,0 +1,13 @@
+# Use a vertical stacking layout (like a column)
+layout splits
+
+# First window: yewtube
+# launch --title Yewtube --var window=yt yt
+launch --title youtube-music --var window=yt youtube-music
+
+# Split vertically (stacked), 25% height for cava
+launch --location=hsplit --bias=25 --title Cava cava
+
+# Refocus to the yewtube window
+focus_matching_window var:window=yt
+

@@ -1,0 +1,41 @@
+* {
+	border-radius: 0px;
+	border-color: rgba(0,123,239,1);
+	// border: none;
+	box-shadow: none;
+    font-size: 13px;
+}
+
+window {
+	font-size: 13px;
+    /* font-family: "FiraCode Nerd Font"; */
+    font-family: JetBrains Mono Nerd Font;
+	background-color: rgba(0,0,0,0.85);
+	color: white;
+	// border-bottom: 5px solid blue; 
+	border: 2px solid rgba(0,123,239,1);
+}
+
+#entry{
+	/* padding: 0.25em; */
+}
+
+#entry:selected {
+	background-color: rgba(238,35,148,1); 
+	font-size: 13px;
+    border: 2px solid rgba(238,35,148,1);
+}
+
+#text:selected {
+	color: white;
+}
+
+#input{
+	background-color: rgba(0,0,0,0.85);
+	color: white;
+	/* padding: 0.25em; */
+	/* padding-left: 160px; */
+}
+#input > image.left {
+	-gtk-icon-transform:scaleX(0);
+}
