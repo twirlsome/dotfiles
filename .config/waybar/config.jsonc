@@ -231,36 +231,59 @@
     },
 
     "custom/mediaprev": {
-        "exec": "$HOME/.config/waybar/media_button.py prev 2> /dev/null",
-        "on-click": "playerctl previous",
-        "interval": 10,
-        // "format": "󰒭",
-        "return-type": "json"
+        "exec": "$HOME/.config/waybar/media_button2.py prev",
+        "return-type": "json",
+        "on-click": "playerctl previous"
     },
 
     "custom/medianext": {
-        "exec": "$HOME/.config/waybar/media_button.py next 2> /dev/null",
-        "on-click": "playerctl next",
-        "interval": 10,
-        // "format": "󰒭",
-        "return-type": "json"
+        "exec": "$HOME/.config/waybar/media_button2.py next",
+        "return-type": "json",
+        "on-click": "playerctl next"
     },
+   
+    // "custom/mediaprev": {
+    //     "exec": "$HOME/.config/waybar/media_button.py prev 2> /dev/null",
+    //     "on-click": "playerctl previous",
+    //     "interval": 10,
+    //     // "format": "󰒭",
+    //     "return-type": "json"
+    // },
+
+    // "custom/medianext": {
+    //     "exec": "$HOME/.config/waybar/media_button.py next 2> /dev/null",
+    //     "on-click": "playerctl next",
+    //     "interval": 10,
+    //     // "format": "󰒭",
+    //     "return-type": "json"
+    // },
 
     "custom/media": {
-        "format": "{icon} {text}",
+        "exec": "$HOME/.config/waybar/mediaplayer2.py",
         "return-type": "json",
+        "format": "{text}",
         "max-length": 40,
-        "format-icons": {
-            "spotify": "", //
-            "default": "" //🎜
-        },
-        "escape": true,
-        "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null", // Script in resources folder
-        "interval": 10,
         "on-click": "playerctl play-pause",
-        "on-click-right": "hyprctl dispatch focuswindow class:com.github.th_ch.youtube_music",
-        "tooltip": false
+        "on-click-right": "playerctl next",
+        "on-click-middle": "playerctl previous",
+        "tooltip": true
     },
+
+    // "custom/media": {
+    //     "format": "{icon} {text}",
+    //     "return-type": "json",
+    //     "max-length": 40,
+    //     "format-icons": {
+    //         "spotify": "", //
+    //         "default": "" //🎜
+    //     },
+    //     "escape": true,
+    //     "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null", // Script in resources folder
+    //     "interval": 10,
+    //     "on-click": "playerctl play-pause",
+    //     "on-click-right": "hyprctl dispatch focuswindow class:com.github.th_ch.youtube_music",
+    //     "tooltip": false
+    // },
 
     "custom/power": {
         "format": "logout  ",

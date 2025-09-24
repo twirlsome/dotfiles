@@ -233,6 +233,8 @@ label:focus {
 #wireplumber.muted {
 }
 
+#custom-mediaprev.media,
+#custom-medianext.media,
 #custom-mediaprev,
 #custom-medianext {
     font-size: 16px;
@@ -242,7 +244,8 @@ label:focus {
     margin: 0;
 }
 
-#custom-media {
+#custom-media,
+#custom-media.media {
     /* background-color: #8c0a4f; */
     /* background-color: #700a41; */
     background-color: #610837;
@@ -264,6 +267,7 @@ label:focus {
     margin-right: 0;
 }
 
+#custom-media.media.nothing,
 #custom-media.nothing,
 #custom-mediaprev.nothing,
 #custom-medianext.nothing {
