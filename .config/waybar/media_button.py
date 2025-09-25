@@ -1,58 +1,49 @@
 #!/usr/bin/env python3
-import subprocess
-import json
-import sys
+import gi, json, sys
+gi.require_version("Playerctl", "2.0")
+from gi.repository import Playerctl, GLib
 
-def list_players():
-    try:
-        output = subprocess.check_output(['playerctl', '-l'], text=True).strip().split('\n')
-        return output
-    except subprocess.CalledProcessError:
-        return []
+action = sys.argv[1] if len(sys.argv) > 1 else "?"
 
-def metadata(player):
-    try:
-        output = subprocess.check_output(
-            ['playerctl', '-p', player, 'metadata', '--format', '{{title}}||{{artist}}||{{album}}'],
-            text=True
-        ).strip()
-        title, artist, album = (output.split('||') + ['', '', ''])[:3]
-        return {
-            'title': title,
-            'artist': artist,
-            'album': album
-        }
-    except subprocess.CalledProcessError:
-        return None
+icon_map = {
+    "prev": "󰒮",
+    "next": "󰒭"
+}
 
-def main():
-    if len(sys.argv) != 2:
-        sys.exit(1)
+def print_button(player):
+    status = player.props.status
+    if status in ("Playing", "Paused"):
+        print(json.dumps({
+            "text": icon_map.get(action, "?"),
+            "class": "media"
+        }), flush=True)
+    else:
+        print(json.dumps({
+            "text": "",
+            "class": "nothing"
+        }), flush=True)
 
-    action = sys.argv[1]
-    icon_map = {
-        'prev': '󰒮',
-        'next': '󰒭'
-    }
+def on_metadata(player, metadata, _=None):
+    print_button(player)
 
-    players = list_players()
-    ytp_player = next((p for p in players if p.startswith('mps-youtube')), None)
-    player = ytp_player if ytp_player else (players[0] if players else None)
+def on_status(player, status, _=None):
+    print_button(player)
 
-    if not player:
-        print(json.dumps({"text": "", "class": "nothing"}))
-        return
+def on_player_appeared(manager, name):
+    player = Playerctl.Player.new_from_name(name)
+    player.connect("metadata", on_metadata)
+    player.connect("playback-status", on_status)
+    manager.manage_player(player)
+    # Force initial state print on appearance
+    print_button(player)
 
-    meta = metadata(player)
-    if not meta or not meta['title']:
-        print(json.dumps({"text": "", "class": "nothing"}))
-        return
+manager = Playerctl.PlayerManager()
+manager.connect("name-appeared", on_player_appeared)
 
-    print(json.dumps({
-        "text": icon_map.get(action, "?"),
-        "class": "media"
-    }))
+# Initialize already running players
+for name in manager.props.player_names:
+    on_player_appeared(manager, name)
 
-if __name__ == "__main__":
-    main()
+loop = GLib.MainLoop()
+loop.run()
 

@@ -16,6 +16,10 @@ settings:
     https://github.com: access-paste
   content.notifications.enabled:
     https://www.youtube.com: false
+  content.register_protocol_handler:
+    https://mail.proton.me#mailto=%25s: true
+  qt.force_software_rendering:
+    global: chromium
   tabs.max_width:
     global: -1
   tabs.min_width:
@@ -23,6 +27,6 @@ settings:
   tabs.position:
     global: top
   tabs.width:
-    global: 10%
+    global: 5%
   url.start_pages:
     global: about:blank

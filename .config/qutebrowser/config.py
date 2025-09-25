@@ -2,9 +2,10 @@ config.load_autoconfig()
 
 # c.url.start_pages = "about:blank"   # Homepage / startup
 c.url.start_pages = "/home/twirlsome/Documents/qutebrowser_homepage/index.html"
-# c.url.default_page = "about:blank" # New tabs
 c.url.default_page = "/home/twirlsome/Documents/qutebrowser_homepage/index.html"
+c.editor.command = ['kitty','-e','nvim', '{}']
 
+# searching
 c.url.searchengines = {
         # 'DEFAULT': 'https://duckduckgo.com/?q={}',
         'DEFAULT': 'https://google.com/search?q={}',
