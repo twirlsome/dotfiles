@@ -17,7 +17,6 @@
         // "temperature",
         // "backlight",
         // "keyboard-state",
-        // "sway/language",
         "battery",
 	    // "battery#bat2",
 	    "tray",
@@ -55,18 +54,6 @@
             "unlocked": ""
         }
     },
-
-    // "sway/mode": {
-    //     "format": "<span style=\"italic\">{}</span>"
-    // },
-
-    // "sway/scratchpad": {
-    //     "format": "{icon} {count}",
-    //     "show-empty": false,
-    //     "format-icons": ["", ""],
-    //     "tooltip": true,
-    //     "tooltip-format": "{app}: {title}"
-    // },
 
     "hyprland/window": {
         "format": "{title}"
@@ -248,8 +235,7 @@
         "format": "{text}",
         "max-length": 40,
         "on-click": "playerctl play-pause",
-        "on-click-right": "playerctl next",
-        "on-click-middle": "playerctl previous",
+        "on-click-right": "~/.config/waybar/focus_player.sh",
         "tooltip": true
     },
 

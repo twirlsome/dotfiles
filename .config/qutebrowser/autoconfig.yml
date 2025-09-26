@@ -14,6 +14,7 @@ settings:
   content.javascript.clipboard:
     https://chatgpt.com: access-paste
     https://github.com: access-paste
+    https://poe.com: access-paste
   content.notifications.enabled:
     https://www.youtube.com: false
   content.register_protocol_handler:

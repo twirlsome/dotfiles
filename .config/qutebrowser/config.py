@@ -18,7 +18,15 @@ c.url.searchengines = {
 config.bind('=', 'cmd-set-text -s :open')
 config.unbind('q', mode='normal')
 config.unbind('d', mode='normal')
+config.unbind('<Ctrl-^>', mode='normal')
 config.bind('dd', 'tab-close')
+# In insert mode → leave insert mode + blur textbox
+config.bind('<Escape>', 'mode-leave ;; jseval -q document.activeElement.blur()', mode='insert')
+config.bind('<Ctrl-[>', 'mode-leave ;; jseval -q document.activeElement.blur()', mode='insert')
+# In normal mode → just blur textbox
+config.bind('<Escape>', 'jseval -q document.activeElement.blur()', mode='normal')
+config.bind('<Ctrl-[>', 'jseval -q document.activeElement.blur()', mode='normal')
+config.bind('<Ctrl-g>', 'jseval -q -f ~/Scripts/qute_grid.js')
 
 # Enable adblocking
 c.content.blocking.enabled = True
