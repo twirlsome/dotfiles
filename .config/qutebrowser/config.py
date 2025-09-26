@@ -1,5 +1,6 @@
 config.load_autoconfig()
 
+c.qt.args = ["--enable-logging", "--log-level=0"]
 # c.url.start_pages = "about:blank"   # Homepage / startup
 c.url.start_pages = "/home/twirlsome/Documents/qutebrowser_homepage/index.html"
 c.url.default_page = "/home/twirlsome/Documents/qutebrowser_homepage/index.html"
@@ -26,7 +27,7 @@ config.bind('<Ctrl-[>', 'mode-leave ;; jseval -q document.activeElement.blur()',
 # In normal mode → just blur textbox
 config.bind('<Escape>', 'jseval -q document.activeElement.blur()', mode='normal')
 config.bind('<Ctrl-[>', 'jseval -q document.activeElement.blur()', mode='normal')
-config.bind('<Ctrl-g>', 'jseval -q -f ~/Scripts/qute_grid.js')
+config.bind('<Ctrl-g>', 'jseval -q -f ~/.config/qutebrowser/grid_nav.js')
 
 # Enable adblocking
 c.content.blocking.enabled = True
