@@ -2,8 +2,8 @@ config.load_autoconfig()
 
 c.qt.args = ["--enable-logging", "--log-level=0"]
 # c.url.start_pages = "about:blank"   # Homepage / startup
-c.url.start_pages = "/home/twirlsome/Documents/qutebrowser_homepage/index.html"
-c.url.default_page = "/home/twirlsome/Documents/qutebrowser_homepage/index.html"
+c.url.start_pages = "~/.config/qutebrowser/index.html"
+c.url.default_page = "~/.config/qutebrowser/index.html"
 c.editor.command = ['kitty','-e','nvim', '{}']
 
 # searching
@@ -38,14 +38,11 @@ c.content.blocking.adblock.lists = [
     # General
     "https://easylist.to/easylist/easylist.txt",
     "https://easylist.to/easylist/easyprivacy.txt",
-
-    # Annoyances / banners
     "https://secure.fanboy.co.nz/fanboy-annoyance.txt",
-
-    # Regional: Indonesia, Malaysia, Singapore
-    "https://filters.adtidy.org/extension/ublock/filters/224.txt",  # Indonesian
-    "https://filters.adtidy.org/extension/ublock/filters/218.txt",  # Malaysian
-    "https://filters.adtidy.org/extension/ublock/filters/220.txt",  # Singaporean
+    "https://filters.adtidy.org/extension/ublock/filters/224.txt",
+    "https://filters.adtidy.org/extension/ublock/filters/224.txt",
+    "https://filters.adtidy.org/extension/ublock/filters/218.txt",
+    "https://filters.adtidy.org/extension/ublock/filters/220.txt",
 
     # uBlock
     # "https://github.com/ewpratten/youtube_ad_blocklist/blob/master/blocklist.txt",

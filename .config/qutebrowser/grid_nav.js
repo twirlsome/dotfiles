@@ -5,16 +5,17 @@
     const COLS = 30;             // number of grid columns
     const ROWS = 20;             // number of grid rows
     const EXPIRE_SECS = 10;      // overlay expires after this many seconds of inactivity
-    const BUFFER_SECS = 4;     // time to wait for more digits before selecting
+    const BUFFER_SECS = 4;       // buffer before auto-selection
 
     // === Derived values ===
     const MAX_CELLS = COLS * ROWS;
     const MAX_DIGITS = String(MAX_CELLS).length;
 
-    // Remove old overlay if still present
-    const old = document.getElementById('qute-grid-overlay');
-    if (old) old.remove();
+    // === Remove old overlay if present ===
+    const oldOverlay = document.getElementById('qute-grid-overlay');
+    if (oldOverlay) oldOverlay.remove();
 
+    // === Create overlay ===
     const overlay = document.createElement('div');
     overlay.id = 'qute-grid-overlay';
     Object.assign(overlay.style, {
@@ -23,42 +24,42 @@
         zIndex: '2147483647',
         pointerEvents: 'none',
         fontFamily: 'monospace',
-        background: 'rgba(0,0,0,0.70)',
+        background: 'rgba(0,0,0,0.4)',
+        display: 'grid',
+        gridTemplateColumns: `repeat(${COLS}, 1fr)`,
+        gridTemplateRows: `repeat(${ROWS}, 1fr)`,
     });
 
     const cells = [];
-    const cellW = 100 / COLS;
-    const cellH = 100 / ROWS;
+    const cellWidth = window.innerWidth / COLS;
+    const cellHeight = window.innerHeight / ROWS;
     let n = 1;
+
     for (let r = 0; r < ROWS; r++) {
         for (let c = 0; c < COLS; c++) {
             const box = document.createElement('div');
             box.dataset.index = n;
             Object.assign(box.style, {
-                position: 'absolute',
-                left: `${c * cellW}%`,
-                top: `${r * cellH}%`,
-                width: `${cellW}%`,
-                height: `${cellH}%`,
-                border: '1px solid rgba(255,0,0,0.2)',
+                border: '1px solid rgba(0,255,0,0.5)',
                 boxSizing: 'border-box',
-                color: 'red',
-                fontSize: '18px',
+                color: 'lime',
+                fontSize: `${Math.min(cellWidth, cellHeight) / 2}px`,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 pointerEvents: 'none',
                 userSelect: 'none',
             });
-            box.textContent = String(n);
+            box.textContent = n <= MAX_CELLS ? n : '';
             overlay.appendChild(box);
             cells.push(box);
             n++;
         }
     }
-    document.body.appendChild(overlay);
 
-    // Hidden element to preserve focus context
+    document.documentElement.appendChild(overlay);
+
+    // === Focus capture element ===
     const focusCapture = document.createElement('div');
     focusCapture.id = 'qute-focus-capture';
     focusCapture.tabIndex = 0;
@@ -73,30 +74,28 @@
     });
     document.body.appendChild(focusCapture);
 
-    // Buffers and timers
+    // === Buffers and timers ===
     let buffer = '';
     let selectTimer = null;
     let expireTimer = null;
 
     function resetExpire() {
         if (expireTimer) clearTimeout(expireTimer);
-        expireTimer = setTimeout(() => cleanup(), EXPIRE_SECS * 1000);
+        expireTimer = setTimeout(cleanup, EXPIRE_SECS * 1000);
     }
 
     function cleanup() {
         if (selectTimer) clearTimeout(selectTimer);
         if (expireTimer) clearTimeout(expireTimer);
-        document.removeEventListener('keydown', keyHandler, true);
+        removeKeyListeners();
         overlay.remove();
-        if (focusCapture.parentNode) {
-            focusCapture.remove();
-        }
+        if (focusCapture.parentNode) focusCapture.remove();
     }
 
     function highlight(num) {
         cells.forEach(c => (c.style.background = ''));
         if (num >= 1 && num <= MAX_CELLS) {
-            cells[num - 1].style.background = 'rgba(255,255,0,0.3)';
+            cells[num - 1].style.background = 'rgba(0,255,0,0.3)';
         }
     }
 
@@ -110,11 +109,10 @@
         const y = (r + 0.5) * (window.innerHeight / ROWS);
 
         overlay.style.display = 'none';
-        let target = document.elementFromPoint(x, y);
+        const target = document.elementFromPoint(x, y);
         overlay.style.display = '';
 
         if (!target) return cleanup();
-
         focusSmart(target);
         cleanup();
     }
@@ -149,18 +147,15 @@
         resetExpire();
 
         if (e.key === 'Escape') return cleanup();
-
         if (e.key === 'Backspace') {
             buffer = buffer.slice(0, -1);
             highlight(parseInt(buffer, 10));
             return;
         }
-
         if (e.key === 'Enter') {
             select(parseInt(buffer, 10));
             return;
         }
-
         if (/^[0-9]$/.test(e.key)) {
             buffer += e.key;
             highlight(parseInt(buffer, 10));
@@ -176,8 +171,34 @@
         }
     }
 
+    // === Attach key listener only to top-level document ===
+    function attachTopListener() {
+        document.addEventListener('keydown', keyHandler, true);
+    }
+
+    function removeKeyListeners() {
+        document.removeEventListener('keydown', keyHandler, true);
+    }
+
+    // === Optional: attach to same-origin iframe when focused ===
+    document.addEventListener('focusin', () => {
+        const active = document.activeElement;
+        if (active && active.tagName === 'IFRAME') {
+            try {
+                const fd = active.contentDocument;
+                if (fd && !fd.quteListenerAttached) {
+                    fd.addEventListener('keydown', keyHandler, true);
+                    fd.quteListenerAttached = true;
+                }
+            } catch (e) {
+                // cross-origin iframe; ignore
+            }
+        }
+    }, true);
+
+    // === Initialize ===
     focusCapture.focus();
-    document.addEventListener('keydown', keyHandler, true);
+    attachTopListener();
     resetExpire();
 })();
 
