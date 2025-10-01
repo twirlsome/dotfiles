@@ -3,8 +3,8 @@
     /* font-family: FontAwesome, Roboto, Helvetica, Arial, sans-serif; */
     /* font-family: Departure Mono, FontAwesome; */
     /* font-family: FiraCode Nerd Font, FontAwesome; */
-    font-family: JetBrains Mono Nerd Font, FontAwesome, Nerd Font;
-    font-size: 10px;
+    font-family: JetBrains Mono Nerd Font, Noto Sans CJK JP, Noto Sans CJK SC, FontAwesome, Nerd Font;
+    font-size: 11px;
     min-height: 0;
 }
 
@@ -252,7 +252,8 @@ label:focus {
     border: 1px solid rgb(238,35,148);
     border-radius: 7px;
     min-width: 100px;
-    font-family: Departure Mono, FontAwesome;
+    font-family: JetBrains Mono Nerd Font, Noto Sans CJK JP, Noto Sans CJK SC, FontAwesome, Nerd Font;
+    /* font-family: Departure Mono, FontAwesome; */
     /* font-family: JetBrains Mono Nerd Font; */
     font-size: 11px;
     min-height: 0;

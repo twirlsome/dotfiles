@@ -109,7 +109,22 @@
         "tooltip": true,
         "format": "{:%d/%m/%y (%a) · %H:%M}",
         "tooltip-format": "<tt><big>{calendar}</big></tt>",
-        // "format-alt": "{:%Y-%m-%d}  |"
+        "actions": {
+                    "on-click": "mode"
+        },
+        "calendar": {
+            		"mode": "month",
+                    "mode-mon-col": 4,
+                    // "weeks-pos": "right",
+                    "on-scroll": 1,
+            		"format": {
+                	    "months": "<span color='#ffffff'><b>{}</b></span>",
+                        "days": "<span color='#cdd6f4'><b>{}</b></span>",
+                        // "weeks": "<span color='#99ffdd'><b>W{}</b></span>",
+                	    "weekdays": "<span color='#7CD37C'><b>{}</b></span>",
+                	    "today": "<span color='#EE2394'><b><u>{}</u></b></span>"
+                    }
+        }
     },
 
     "cpu": {
