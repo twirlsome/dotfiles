@@ -58,3 +58,6 @@ nnoremap n nzzzv
 nnoremap N Nzzzv
 nnoremap gg ggzz
 nnoremap G Gzz
+
+command W execute 'w !sudo -S tee % > /dev/null' | edit!
+
