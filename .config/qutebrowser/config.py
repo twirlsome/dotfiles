@@ -16,7 +16,7 @@ c.url.searchengines = {
 }
 
 # keybind
-config.bind('=', 'cmd-set-text -s :open')
+# config.bind('=', 'cmd-set-text -s :open')
 config.unbind('q', mode='normal')
 config.unbind('d', mode='normal')
 config.unbind('<Ctrl-^>', mode='normal')
