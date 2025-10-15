@@ -15,6 +15,17 @@ return {
         layout_config = { prompt_position = "top" },
         file_ignore_patterns = { "node_modules", ".git/" },
         path_display = { "smart" },
+        hidden = true,
+      },
+    pickers = {
+      find_files = {
+        hidden = true,
+      },
+        live_grep = {
+          additional_args = function()
+            return { "--hidden" } -- 👈 include hidden files when grepping
+          end,
+        },
       },
       extensions = {
         fzf = {
