@@ -4,6 +4,7 @@
 
 -- Set <leader> first (must come before plugins/keymaps)
 vim.g.mapleader = " "
+vim.opt.termguicolors = true
 
 -- Load core settings
 require("core.options")

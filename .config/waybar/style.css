@@ -64,12 +64,15 @@ button:hover {
     padding: 0 5px;
     background-color: transparent;
     color: #ffffff;
+    border: 1px solid rgba(0,0,0,255); /* invis border so it has same size between active and inactive */
 }
 
-#workspaces button.active {
+#workspaces button.active,
+#workspaces button.active.empty {
     /* background: rgba(0, 0, 0, 0.2); */
     background-color: #8c0a4f;
-    border: 1px solid rgb(238,35,148);
+    border: 1px solid rgb(238,35,148); 
+    background-image: none;
 }
 
 #workspaces button:hover {
@@ -85,6 +88,32 @@ button:hover {
 
 #workspaces button.urgent {
     background-color: #eb4d4b;
+}
+
+/* #workspaces button:not(.empty):not(.active) { */
+/*     /1* border-bottom-color: #8c0a4f; *1/ */
+/*     /1* border-bottom: 3px solid #8c0a4f; *1/ */
+/*     border-bottom: 3px solid rgb(238,35,148); */
+/* } */
+
+/* #workspaces button.empty { */
+/*     /1* border-bottom-color: #5294e2; *1/ */
+/*     border-bottom: 3px solid #2599cf; */
+/*     /1* border-bottom: 3px solid #025eb5; *1/ */
+/* } */
+
+#workspaces button:not(.empty):not(.active) {
+    background-image: linear-gradient(to right, rgb(238,35,148), rgb(238,35,148));
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-size: 80% 2px; /* x% width, ypx height */
+}
+
+#workspaces button.empty {
+    background-image: linear-gradient(to right, #2599cf, #2599cf);
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-size: 80% 2px;
 }
 
 #mode {

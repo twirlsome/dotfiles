@@ -21,5 +21,6 @@ require("lazy").setup({
   require("plugins.indent"),
   require("plugins.nvim-tree"),
   require("plugins.telescope"),
+  require("plugins.colorizer"),
 })
 
