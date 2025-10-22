@@ -6,6 +6,9 @@
     const ROWS = 20;             // number of grid rows
     const EXPIRE_SECS = 10;      // overlay expires after this many seconds of inactivity
     const BUFFER_SECS = 4;       // buffer before auto-selection
+    const TEXT_COLOR = 'rgba(82,148,226,1)';
+    const GRID_COLOR = 'rgba(82,148,226,1)';
+    const BG_COLOR = 'rgba(82,148,226,0.25)'; // highlight background (slightly translucent)
 
     // === Derived values ===
     const MAX_CELLS = COLS * ROWS;
@@ -20,7 +23,10 @@
     overlay.id = 'qute-grid-overlay';
     Object.assign(overlay.style, {
         position: 'fixed',
-        inset: '0',
+        left: '0',
+        top: '0',
+        right: '0',
+        bottom: '0',
         zIndex: '2147483647',
         pointerEvents: 'none',
         fontFamily: 'monospace',
@@ -29,6 +35,9 @@
         gridTemplateColumns: `repeat(${COLS}, 1fr)`,
         gridTemplateRows: `repeat(${ROWS}, 1fr)`,
     });
+
+    // Use document.body — generally safe and visible across pages
+    document.body.appendChild(overlay);
 
     const cells = [];
     const cellWidth = window.innerWidth / COLS;
@@ -39,10 +48,12 @@
         for (let c = 0; c < COLS; c++) {
             const box = document.createElement('div');
             box.dataset.index = n;
+            // IMPORTANT: interpolate GRID_COLOR with template literal
             Object.assign(box.style, {
-                border: '1px solid rgba(0,255,0,0.5)',
+                border: `1px solid ${GRID_COLOR}`,
                 boxSizing: 'border-box',
-                color: 'lime',
+                background: 'transparent',            // ensure it's not filled
+                color: TEXT_COLOR,
                 fontSize: `${Math.min(cellWidth, cellHeight) / 2}px`,
                 display: 'flex',
                 alignItems: 'center',
@@ -57,7 +68,11 @@
         }
     }
 
-    document.documentElement.appendChild(overlay);
+    // quick debug info so you can confirm what's created
+    console.info('qute-grid: created', cells.length, 'cells. sample cell styles:');
+    for (let i = 0; i < Math.min(5, cells.length); i++) {
+        console.info(i + 1, cells[i].dataset.index, window.getComputedStyle(cells[i]).cssText);
+    }
 
     // === Focus capture element ===
     const focusCapture = document.createElement('div');
@@ -88,14 +103,14 @@
         if (selectTimer) clearTimeout(selectTimer);
         if (expireTimer) clearTimeout(expireTimer);
         removeKeyListeners();
-        overlay.remove();
+        if (overlay.parentNode) overlay.remove();
         if (focusCapture.parentNode) focusCapture.remove();
     }
 
     function highlight(num) {
         cells.forEach(c => (c.style.background = ''));
         if (num >= 1 && num <= MAX_CELLS) {
-            cells[num - 1].style.background = 'rgba(0,255,0,0.3)';
+            cells[num - 1].style.background = BG_COLOR;
         }
     }
 
