@@ -6,9 +6,9 @@
     const ROWS = 20;             // number of grid rows
     const EXPIRE_SECS = 10;      // overlay expires after this many seconds of inactivity
     const BUFFER_SECS = 4;       // buffer before auto-selection
-    const TEXT_COLOR = 'rgba(82,148,226,1)';
-    const GRID_COLOR = 'rgba(82,148,226,1)';
-    const BG_COLOR = 'rgba(82,148,226,0.25)'; // highlight background (slightly translucent)
+    const TEXT_COLOR = 'rgba(0,123,239,1)';
+    const GRID_COLOR = 'rgba(0,123,239,0.35)';
+    const BG_COLOR = 'rgba(82,148,226,0.7)'; // highlight background (slightly translucent)
 
     // === Derived values ===
     const MAX_CELLS = COLS * ROWS;
@@ -29,7 +29,7 @@
         bottom: '0',
         zIndex: '2147483647',
         pointerEvents: 'none',
-        fontFamily: 'monospace',
+        fontFamily: 'Noto Sans CJK JP',
         background: 'rgba(0,0,0,0.4)',
         display: 'grid',
         gridTemplateColumns: `repeat(${COLS}, 1fr)`,
