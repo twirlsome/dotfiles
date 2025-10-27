@@ -1,5 +1,5 @@
 -- ======================================================================
--- nic.lua – Expressive white theme with pink and blue accents
+-- nic.lua – Nicaea inspired color palette
 -- ======================================================================
 
 vim.opt.termguicolors = true
@@ -39,7 +39,7 @@ set(0, "StatusLineNC",  { fg = c.gray, bg = "#0d0d0d" })
 -- Core Syntax (general, consistent across languages)
 -- --------------------------------------------------
 set(0, "Comment",       { fg = c.gray, italic = true })
-set(0, "String",        { fg = c.fg })         -- strings are blue
+set(0, "String",        { fg = c.fg })
 set(0, "Function",      { fg = c.pink, bold = true })
 set(0, "Type",          { fg = c.pink })
 set(0, "Keyword",       { fg = c.blue, bold = true })

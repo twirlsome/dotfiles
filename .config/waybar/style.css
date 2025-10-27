@@ -36,8 +36,8 @@ button:hover {
 
 #workspaces button.active,
 #workspaces button.active.empty {
-    background-color: #520029;            /* dark pink bg */
-    border: 1px solid #ff008c;            /* bright pink border */
+    background-color: #520029;            
+    border: 1px solid #ff008c;
     color: #ffffff;
     background-image: none;
 }
@@ -71,7 +71,7 @@ button:hover {
 
 /* === Clock === */
 #clock {
-    background-color: #005fba;            /* blue accent */
+    background-color: #005fba;
     border-radius: 4px;
     border: 0.4px solid #ffffff;
     color: #ffffff;
@@ -82,8 +82,8 @@ button:hover {
 /* === Media Widget === */
 #custom-media,
 #custom-media.media {
-    background-color: #520029;            /* dark pink background */
-    border: 1px solid #ff008c;            /* bright pink border */
+    background-color: #520029;
+    border: 1px solid #ff008c;
     border-radius: 7px;
     min-width: 100px;
     color: #ffffff;
