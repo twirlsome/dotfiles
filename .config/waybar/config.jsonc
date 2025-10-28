@@ -107,7 +107,7 @@
     "clock": {
         // "timezone": "America/New_York",
         "tooltip": true,
-        "format": "{:%d/%m/%y (%a) · %H:%M}",
+        "format": "|  {:%d/%m/%y (%a) · %H:%M} ",
         "tooltip-format": "<tt><big>{calendar}</big></tt>",
         "actions": {
                     "on-click": "mode"
@@ -158,23 +158,23 @@
             "critical": 15
         },
         "tooltip": false,
-        "format": "bat {capacity}% {icon}",
-        "format-full": "{capacity}% {icon}",
-        //"format-charging": "{capacity}%   |",
-        "format-charging": "cha {capacity}% {icon}",
-        // "format-plugged": "{capacity}% ",
-        "format-plugged": "plu {capacity}% {icon}",
-        "format-alt": "{time}{icon}",
+        "format": " bat {capacity}% {icon}",
+        "format-full": " {capacity}% {icon}",
+        //"format-charging": " {capacity}%   |",
+        "format-charging": " cha {capacity}% {icon}",
+        // "format-plugged": " {capacity}% ",
+        "format-plugged": " plu {capacity}% {icon}",
+        "format-alt": " {time}{icon}",
         // "interval": 5,
         // "format-good": "", // An empty format will hide the module
         // "format-full": "",
         //        "format-icons": ["", "", "", "", ""]
-        "format-icons": ["[·····]  |",
-            "[█····]  |", 
-            "[██···]  |", 
-            "[███··]  |", 
-            "[████·]  |", 
-            "[█████]  |" 
+        "format-icons": ["[·····]",
+            "[█····]", 
+            "[██···]", 
+            "[███··]", 
+            "[████·]", 
+            "[█████]" 
         ]
     },
 
@@ -196,7 +196,7 @@
 
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
-        "format-wifi": "{essid} ({signalStrength}%)  |",
+        "format-wifi": " {essid} ({signalStrength}%)  |",
         "format-ethernet": "{ipaddr}/{cidr}  |",
         // "tooltip-format": "{ifname} via {gwaddr}  |",
         "format-linked": "{ifname} (No IP)  |",

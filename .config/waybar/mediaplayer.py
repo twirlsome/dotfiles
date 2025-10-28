@@ -165,7 +165,7 @@ class PlayerManager:
                 self.clear_output()
                 return
 
-            track_info = " " + track_info
+            track_info = " " + track_info + " "
             self.write_output(track_info, player)
         except Exception as e:
             logger.exception(f"Metadata handling error: {e}")

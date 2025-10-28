@@ -29,6 +29,9 @@ config.bind('<Ctrl-[>', 'mode-leave ;; jseval -q document.activeElement.blur()',
 config.bind('<Escape>', 'jseval -q document.activeElement.blur()', mode='normal')
 config.bind('<Ctrl-[>', 'jseval -q document.activeElement.blur()', mode='normal')
 config.bind('<Ctrl-g>', 'jseval -q -f ~/.config/qutebrowser/grid_nav.js')
+config.bind('xb', 'config-cycle statusbar.show always never')
+config.bind('xt', 'config-cycle tabs.show always never')
+config.bind('xx', 'config-cycle tabs.position top left bottom')
 
 # Enable adblocking
 c.content.blocking.enabled = True

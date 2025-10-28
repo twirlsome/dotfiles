@@ -74,7 +74,7 @@ set(0, "@type",                  { fg = c.pink })
 set(0, "@variable",              { fg = c.fg })
 set(0, "@variable.parameter",    { fg = c.fg })
 set(0, "@variable.member",       { fg = c.fg })     -- object.property
-set(0, "@property",              { fg = c.pink })     -- consistent semantic
+set(0, "@property",              { fg = c.fg })     -- consistent semantic
 set(0, "@string",                { fg = c.fg })
 
 -- --------------------------------------------------

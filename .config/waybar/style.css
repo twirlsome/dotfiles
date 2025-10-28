@@ -71,9 +71,9 @@ button:hover {
 
 /* === Clock === */
 #clock {
-    background-color: #005fba;
-    border-radius: 4px;
-    border: 0.4px solid #ffffff;
+    /* background-color: #005fba; */
+    /* border-radius: 4px; */
+    /* border: 0.4px solid #ffffff; */
     color: #ffffff;
     margin: 4px 0;
     padding: 4px 7px 2px 7px;
@@ -84,7 +84,7 @@ button:hover {
 #custom-media.media {
     background-color: #520029;
     border: 1px solid #ff008c;
-    border-radius: 7px;
+    border-radius: 3px;
     min-width: 100px;
     color: #ffffff;
     padding: 2px 6px;
@@ -107,7 +107,7 @@ button:hover {
     color: #ffffff;
 }
 #battery.charging, #battery.plugged {
-    color: #007bef; /* blue accent for charging */
+    color: #00ffde; /* torq accent for charging */
 }
 #battery.critical:not(.charging) {
     color: #ff008c; /* pink for low battery */
