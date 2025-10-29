@@ -51,6 +51,7 @@ button:hover {
 #workspaces button.urgent {
     background-color: #ff008c;
     color: #ffffff;
+    font-size: 22px;
 }
 
 /* inactive workspaces bottom line (pink accent) */
@@ -83,6 +84,7 @@ button:hover {
 #custom-media,
 #custom-media.media {
     background-color: #520029;
+    /* background-color: #1a1a1a;*/ /* grey background mimic firefox theme */
     border: 1px solid #ff008c;
     border-radius: 3px;
     min-width: 100px;

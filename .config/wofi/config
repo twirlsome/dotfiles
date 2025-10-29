@@ -1,1 +1,6 @@
-width=500
+width=400
+show=drun
+prompt=  Nicaea
+no_actions=true
+insensitive=true
+allow_images=false
