@@ -1,5 +1,5 @@
 * {
-	border-radius: 8px;
+	border-radius: 6px;
 	border-color: #888888;
 	box-shadow: none;
     font-size: 14px;
@@ -20,8 +20,8 @@ window {
 }
 
 #entry:selected {
-	// background-color: rgba(238,35,148,0.88);
-    background-color: #8c0a4f;
+	background-color: rgba(238,35,148,0.45);
+    /* background-color: #8c0a4f; */
     border: 1px solid #ff008c;
     color: white;
 }

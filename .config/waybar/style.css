@@ -1,6 +1,6 @@
 * {
     font-family: JetBrains Mono Nerd Font, Noto Sans CJK JP, Noto Sans CJK SC, FontAwesome, Nerd Font;
-    font-size: 11px;
+    font-size: 12px;
     min-height: 0;
 }
 
@@ -51,7 +51,6 @@ button:hover {
 #workspaces button.urgent {
     background-color: #ff008c;
     color: #ffffff;
-    font-size: 22px;
 }
 
 /* inactive workspaces bottom line (pink accent) */
