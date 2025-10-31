@@ -13,6 +13,7 @@ declare -a CONFIGS=(
     "cava"
     "qutebrowser"
     "dunst"
+    "rofi"
 )
 
 echo "Syncing selected config files..."
