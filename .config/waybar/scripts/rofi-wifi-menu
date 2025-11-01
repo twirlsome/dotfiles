@@ -1,0 +1,110 @@
+#!/usr/bin/env bash
+
+DEVICE=${1:-wlan0}
+POSITION=${2:-0}
+Y_OFF=${3:-0}
+X_OFF=${4:-0}
+FONT="JetBrains Mono Nerd Font 10"
+
+# Helper function to prompt for password
+prompt_password() {
+    rofi -dmenu -password -p "Password:" -lines 1 -location "$POSITION" \
+         -yoffset "$Y_OFF" -xoffset "$X_OFF" -font "$FONT" -width "$R_WIDTH"
+}
+
+# Scan for networks and wait until results appear
+iwctl station "$DEVICE" scan
+for i in {1..5}; do
+    # sleep 1
+    NETWORK_LINES=$(iwctl station "$DEVICE" get-networks | sed '/^--/d' | sed 1,4d)
+    [[ -n "$NETWORK_LINES" ]] && break
+done
+
+# Clean ANSI escape sequences
+NETWORK_LINES=$(echo "$NETWORK_LINES" | sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g")
+
+# Get current connected SSID
+CURR_SSID=$(iwctl station "$DEVICE" show | sed -n 's/^\s*Connected\snetwork\s*\(.*\)$/\1/p')
+
+# Build formatted network list
+PREFIX=$'SSID                              SECURITY  SIGNAL\n'
+NETWORK_LIST=""
+while IFS= read -r line; do
+    line=${line:4}  # remove leading spaces
+    SSID_NAME=$(echo "$line" | sed -E 's/\s{2,}[a-zA-Z0-9]+(\s+)?[0-9]+$//')
+    SECURITY=$(echo "$line" | awk '{print $(NF-1)}')
+    SIGNAL=$(echo "$line" | awk '{print $NF}')
+    line=$(printf "%-34s %-10s %3s%%" "$SSID_NAME" "$SECURITY" "$SIGNAL")
+
+    if [[ "$SSID_NAME" = "$CURR_SSID" ]]; then
+        PREFIX+="$line"$'\n'
+    else
+        NETWORK_LIST+="$line"$'\n'
+    fi
+done <<< "$NETWORK_LINES"
+
+IW_NETWORKS="$PREFIX$NETWORK_LIST"
+
+# Highlight current network
+if [[ -n $CURR_SSID ]]; then
+    HIGHLINE=$(echo "$IW_NETWORKS" | awk -F "[ ]{2,}" '{print $1}' \
+               | grep -Fxn -m 1 "$CURR_SSID" | awk -F ":" '{print $1}')
+fi
+
+# Prepare menu options
+CON_STATE=$(iwctl station "$DEVICE" show)
+if [[ "$CON_STATE" =~ " connected" ]]; then
+    MENU="disconnect from ${CURR_SSID}\nmanually connect to a network\n$IW_NETWORKS"
+else
+    MENU="manually connect to a network\n$IW_NETWORKS"
+fi
+
+# Rofi menu sizing
+R_WIDTH=$(($(echo "$IW_NETWORKS" | head -n 1 | awk '{print length($0); }')+5))
+LINE_COUNT=$(echo "$IW_NETWORKS" | wc -l)
+[ "$LINE_COUNT" -gt 12 ] && LINE_COUNT=12
+
+# Get user selection
+CHENTRY=$(echo -e "$MENU" | uniq -u | rofi -dmenu -p " WiFi SSID" \
+          -lines "$LINE_COUNT" -a "$HIGHLINE" -location "$POSITION" \
+          -yoffset "$Y_OFF" -xoffset "$X_OFF" -font "$FONT" -width -"$R_WIDTH")
+
+CHSSID=$(echo "$CHENTRY" | awk '{print $1}')
+
+# Connect function (handles known networks properly)
+connect_network() {
+    local SSID="$1"
+    local PASS="$2"
+
+    if iwctl known-networks list | grep -qx "$SSID"; then
+        # Known network, use stored credentials
+        iwctl station "$DEVICE" connect "$SSID"
+    else
+        # New network, password required
+        if [[ -z "$PASS" ]]; then
+            PASS=$(prompt_password)
+        fi
+        iwctl --passphrase "$PASS" station "$DEVICE" connect "$SSID"
+    fi
+
+    sleep 2
+    if iwctl station "$DEVICE" show | grep -q "$SSID"; then
+        notify-send "WiFi" "Connected to $SSID"
+    else
+        notify-send "WiFi" "Failed to connect to $SSID"
+    fi
+}
+
+# Handle user selection
+if [[ "$CHENTRY" = "manually connect to a network" ]]; then
+    MSSID=$(rofi -dmenu -p "SSID:" -lines 1 -font "$FONT" -location "$POSITION" \
+                  -yoffset "$Y_OFF" -xoffset "$X_OFF" -width "$R_WIDTH")
+    [[ -n "$MSSID" ]] && connect_network "$MSSID"
+
+elif [[ "$CHENTRY" =~ "disconnect from " ]]; then
+    iwctl station "$DEVICE" disconnect
+
+elif [[ -n "$CHSSID" ]]; then
+    connect_network "$CHSSID"
+fi
+

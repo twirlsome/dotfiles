@@ -195,6 +195,7 @@
     },
 
     "network": {
+        "tooltip": false,
         // "interface": "wlp2*", // (Optional) To force the use of this interface
         "format-wifi": " {essid} ({signalStrength}%)  |",
         "format-ethernet": "{ipaddr}/{cidr}  |",
@@ -202,6 +203,7 @@
         "format-linked": "{ifname} (No IP)  |",
         "format-disconnected": "Disconnected  |",
         // "format-alt": "{ifname}: {ipaddr}/{cidr}  |"
+        "on-click": "$HOME/.config/waybar/scripts/rofi-wifi-menu",
     },
 
     "pulseaudio": {
@@ -233,25 +235,25 @@
     },
 
     "custom/mediaprev": {
-        "exec": "$HOME/.config/waybar/media_button.py prev",
+        "exec": "$HOME/.config/waybar/scripts/media_button.py prev",
         "return-type": "json",
         "on-click": "playerctl previous"
     },
 
     "custom/medianext": {
-        "exec": "$HOME/.config/waybar/media_button.py next",
+        "exec": "$HOME/.config/waybar/scripts/media_button.py next",
         "return-type": "json",
         "on-click": "playerctl next"
     },
    
     "custom/media": {
-        "exec": "$HOME/.config/waybar/mediaplayer.py",
+        "exec": "$HOME/.config/waybar/scripts/mediaplayer.py",
         "return-type": "json",
         "format": "{text}",
         "max-length": 40,
         // "on-click": "playerctl play-pause",
         // "on-click": "playerctl --player=%any play-pause",
-        "on-click": "playerctl --player=$(~/.config/waybar/mediaplayer.py --current-player) play-pause",
+        "on-click": "playerctl --player=$(~/.config/waybar/scripts/mediaplayer.py --current-player) play-pause",
         "on-click-right": "~/.config/waybar/focus_player.sh",
         "tooltip": true
     },
@@ -261,7 +263,7 @@
         "tooltip": false,
         // "on-click": "hyprctl dispatch exit",
         // "menu": "on-click",
-        // "menu-file": "$HOME/.config/waybar/power_menu.xml", // Menu file in resources folder
+        // "menu-file": "$HOME/.config/waybar/scripts/power_menu.xml", // Menu file in resources folder
         // "menu-actions": {
             // "shutdown": "shutdown",
             // "reboot": "reboot",
